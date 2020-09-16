@@ -1,0 +1,27 @@
+{
+  "name": "chrome-aws-quicksearch",
+  "version": "1.0.1",
+  "description": "Quickly switch services & regions in AWS. Shift, Shift = Service Select, Shift + R = Region Select. Supports region searching.",
+  "main": "build/build.js",
+  "scripts": {
+    "build": "node ./build/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nessworthy/chrome-extension-aws-quicksearch.git"
+  },
+  "keywords": [
+    "chrome",
+    "extension"
+  ],
+  "author": "Sean Nessworthy <sean@nessworthy.me>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Nessworthy/chrome-extension-aws-quicksearch/issues"
+  },
+  "homepage": "https://github.com/Nessworthy/chrome-extension-aws-quicksearch",
+  "browser": true,
+  "devDependencies": {
+    "ncp": "^2.0.0"
+  }
+}

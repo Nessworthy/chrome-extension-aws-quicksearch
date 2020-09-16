@@ -2,11 +2,6 @@
   "manifest_version": 2,
 
   "name": "AWS Quick Search",
-  "version": "1.0.1",
-  "author": "Sean Nessworthy <sean@nssworthy.me>",
-  "homepage_url": "https://github.com/Nessworthy/chrome-extension-aws-quicksearch",
-
-  "description": "Quickly switch services & regions in AWS. Shift, Shift = Service Select, Shift + R = Region Select. Supports region searching.",
 
   "permissions": [],
 
@@ -18,7 +13,7 @@
 
   "content_scripts": [{
     "matches": [ "https://*.console.aws.amazon.com/*" ],
-    "js": ["background.js"],
+    "js": ["script.js"],
     "css": ["style.css"]
   }]
 }

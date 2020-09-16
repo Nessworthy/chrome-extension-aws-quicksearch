@@ -25,3 +25,11 @@ Quickly switch services & regions in AWS.
 ## Bugs / Issues / Feature Requests
 
 Please use the GitHub issue tracker to report any feedback. 
+
+## Developing
+
+The extension source code is in `src/`.
+
+The extension files and manifest are built using a simple script.
+
+Install required modules with `npm install` and build with `npm run build`.
