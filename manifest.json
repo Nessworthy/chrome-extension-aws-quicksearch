@@ -6,7 +6,6 @@
   "author": "Sean Nessworthy <sean@nssworthy.me>",
   "homepage_url": "https://github.com/Nessworthy/chrome-extension-aws-quicksearch",
 
-  "default_locale": "en",
   "description": "Quickly switch services & regions in AWS. Shift, Shift = Service Select, Shift + R = Region Select. Supports region searching.",
 
   "permissions": [],
