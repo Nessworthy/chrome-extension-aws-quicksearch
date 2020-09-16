@@ -1,0 +1,22 @@
+#aws_quick_search_pane input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 8px 20px;
+    background: none;
+    border: 0;
+    outline: 0;
+    font-style: italic;
+    color: #FFF;
+}
+#aws_quick_search_pane input:focus {
+    border: 0;
+    outline: 0;
+}
+
+.aws-quick-search-region--hide {
+    display: none !important;
+}
+.aws-quick-search-break--hide {
+    display: none !important;
+}
