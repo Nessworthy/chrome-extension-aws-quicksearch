@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "AWS Quick Search",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Sean Nessworthy <sean@nssworthy.me>",
   "homepage_url": "https://github.com/Nessworthy/chrome-extension-aws-quicksearch",
 
