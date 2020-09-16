@@ -1,6 +1,6 @@
 # Changelog
 
-## Next Release
+## 1.0.2
 
 Focus around the build pipeline. No extension changes.
 
