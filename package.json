@@ -1,6 +1,6 @@
 {
   "name": "chrome-aws-quicksearch",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Quickly switch services & regions in AWS. Shift, Shift = Service Select, Shift + R = Region Select. Supports region searching.",
   "main": "build/build.js",
   "scripts": {

@@ -1,6 +1,6 @@
 # Changelog
 
-## Next Release
+## 1.1.0
 
 Looking at region filter support for the old UI.
 
