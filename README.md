@@ -19,8 +19,7 @@ Quickly switch services & regions in AWS.
 
 ## Feature Support
 
-* Shortcuts are supported in both old and new dashboard versions.
-* Region filtering / searching is supported only in the new dashboard version.
+* All features supported in old and new UI console versions.
 
 ## Bugs / Issues / Feature Requests
 
