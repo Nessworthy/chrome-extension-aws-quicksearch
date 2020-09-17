@@ -6,13 +6,13 @@ Looking at region filter support for the old UI.
 
 ### Additions
 
-* Adds region filter / navigation support for the old UI.
+* Region filter / navigation support for the old UI.
 Still a little buggy on the current region element.
 
-### Changes
+### Fixes
 
-* Adds a dumb 100ms start timer for the region observer - this is due to AWS' new UI not loading the
-region dropdown immediately.
+* Stop region text search / navigation from breaking on the new UI if the region dropdown list
+hasn't been created yet.  
 
 ## 1.0.2
 

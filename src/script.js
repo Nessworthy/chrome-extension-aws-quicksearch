@@ -286,6 +286,7 @@ function toggleServiceBox() {
  * Supports the old and new layout.
  */
 function toggleRegionBox() {
+
     let element = document.querySelector('[aria-controls="menu--regions"]') || document.querySelector('#nav-regionMenu');
 
     if (!element) {
@@ -307,16 +308,15 @@ function toggleRegionBox() {
  * Currently only supported with the "new" bar.
  */
 function setupObserverForRegionQuickSearch() {
-    console.log('Observer setup');
-    let mutationCheck;
     let mutationToggleElement;
+    let mutationCheck;
     let regionListContainer;
     let regionMenuContainer;
     let regionItemSelector;
+    let firstObserverCall = true;
+    let ui_version = 0;
     if (document.querySelector('[aria-controls="menu--regions"]')) {
-        // Newer version?
-        regionListContainer = document.querySelector('#menu--regions');
-        regionMenuContainer = regionListContainer.parentElement;
+        ui_version = 2;
         regionItemSelector = 'li';
         mutationToggleElement = document.querySelector('[aria-controls="menu--regions"]');
         mutationCheck = function(mutation) {
@@ -327,9 +327,7 @@ function setupObserverForRegionQuickSearch() {
             return attribute && attribute.value === "true";
         }
     } else if (document.querySelector('#nav-regionMenu')) {
-        // Older version?
-        regionMenuContainer = document.querySelector('#regionMenuContent');
-        regionListContainer = regionMenuContainer;
+        ui_version = 1;
         regionItemSelector = 'a, span'
         mutationToggleElement = document.querySelector('#nav-regionMenu');
         mutationCheck = function(mutation) {
@@ -342,7 +340,21 @@ function setupObserverForRegionQuickSearch() {
         return;
     }
 
-    const observer = new MutationObserver(function (mutationsList, observer) {
+    const observer = new MutationObserver(function (mutationsList) {
+
+        if (firstObserverCall) {
+            firstObserverCall = false;
+            if (ui_version === 2) {
+                // Newer version?
+                regionListContainer = document.querySelector('#menu--regions');
+                regionMenuContainer = regionListContainer.parentElement;
+            } else if (ui_version === 1) {
+                // Older version?
+                regionMenuContainer = document.querySelector('#regionMenuContent');
+                regionListContainer = regionMenuContainer;
+            }
+        }
+
         let change = false
         let isOpen = false;
 
@@ -388,13 +400,4 @@ window.addEventListener('keydown', event => {
     }
 });
 
-if (document.readyState !== 'complete') {
-    document.addEventListener('readystatechange', event => {
-        if (event.target.readyState !== 'complete') {
-            return;
-        }
-        setTimeout(setupObserverForRegionQuickSearch, 100)
-    })
-} else {
-    setTimeout(setupObserverForRegionQuickSearch, 100)
-}
+setupObserverForRegionQuickSearch()
