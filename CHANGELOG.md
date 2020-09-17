@@ -1,5 +1,19 @@
 # Changelog
 
+## Next Release
+
+Looking at region filter support for the old UI.
+
+### Additions
+
+* Adds region filter / navigation support for the old UI.
+Still a little buggy on the current region element.
+
+### Changes
+
+* Adds a dumb 100ms start timer for the region observer - this is due to AWS' new UI not loading the
+region dropdown immediately.
+
 ## 1.0.2
 
 Focus around the build pipeline. No extension changes.

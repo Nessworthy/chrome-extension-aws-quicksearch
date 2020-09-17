@@ -9,6 +9,12 @@
     font-style: italic;
     color: #FFF;
 }
+
+#regionMenuContent #aws_quick_search_pane input {
+    color: #444;
+    padding: 8px 11px;
+}
+
 #aws_quick_search_pane input:focus {
     border: 0;
     outline: 0;

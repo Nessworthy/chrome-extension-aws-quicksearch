@@ -32,24 +32,28 @@ function createRegionQuickSelectHandler(searchElement, menuElement) {
 
     function focusOnFirstItem(visibleRegions)
     {
-        visibleRegions[0].firstChild.focus();
-        currentActiveElement = document.activeElement;
+        let target = ['A', 'SPAN'].indexOf(visibleRegions[0].nodeName) !== -1 ? visibleRegions[0] : visibleRegions[0].firstChild;
+        target.focus();
+        currentActiveElement = target;
     }
 
     function focusOnLastItem(visibleRegions)
     {
-        visibleRegions[visibleRegions.length-1].firstChild.focus();
-        currentActiveElement = document.activeElement;
+        let lastElement = visibleRegions[visibleRegions.length - 1];
+        let target = ['A', 'SPAN'].indexOf(lastElement.nodeName) !== -1 ? lastElement : lastElement.firstChild;
+        target.focus();
+        currentActiveElement = target;
     }
 
     function focusOnNextItem(current)
     {
         while (current = current.nextSibling) {
-            if (current.nodeName !== 'LI' || current.classList.contains(hideRegionClassName)) {
+            if (['LI', 'A', 'SPAN'].indexOf(current.nodeName) === -1 || current.classList.contains(hideRegionClassName)) {
                 continue;
             }
-            current.firstChild.focus();
-            currentActiveElement = current.firstChild;
+            let target = ['A', 'SPAN'].indexOf(current.nodeName) !== -1 ? current : current.firstChild;
+            target.focus();
+            currentActiveElement = target;
             return false;
         }
         // Reached the end?
@@ -59,11 +63,12 @@ function createRegionQuickSelectHandler(searchElement, menuElement) {
     function focusOnPreviousItem(current)
     {
         while (current = current.previousSibling) {
-            if (current.nodeName !== 'LI' || current.classList.contains(hideRegionClassName)) {
+            if (['LI', 'A', 'SPAN'].indexOf(current.nodeName) === -1 || current.classList.contains(hideRegionClassName)) {
                 continue;
             }
-            current.firstChild.focus();
-            currentActiveElement = current.firstChild;
+            let target = ['A', 'SPAN'].indexOf(current.nodeName) !== -1 ? current : current.firstChild;
+            target.focus();
+            currentActiveElement = target;
             return false;
         }
         // Reached the start?
@@ -85,7 +90,8 @@ function createRegionQuickSelectHandler(searchElement, menuElement) {
         // TODO: Let's not do this?
         event.preventDefault();
 
-        let visibleRegions = menuElement.querySelectorAll('li:not(.' + hideRegionClassName + ')');
+        // New, old
+        let visibleRegions = menuElement.querySelectorAll('li:not(.' + hideRegionClassName + '), .region:not(.' + hideRegionClassName + ')');
 
         let active = currentActiveElement || searchElement;
 
@@ -98,13 +104,14 @@ function createRegionQuickSelectHandler(searchElement, menuElement) {
             return false;
         }
 
-        let current = active.parentElement;
+        let current = active;
 
-        if (active.nodeName === 'A') {
-            current = active.parentElement;
+        // New layout only (hence the exclusion on .region)
+        if (!active.classList.contains('region')) {
+            current = current.parentElement;
         }
 
-        if (current.nodeName !== 'LI') {
+        if (current.nodeName !== 'LI' && !active.classList.contains('region')) {
             // Unknown element - focus on the first menu item.
             focusOnFirstItem(visibleRegions);
             return false;
@@ -168,20 +175,22 @@ function createRegionQuickSearchHandler(regions, searchElement, menuElement) {
                     }
                 }
                 anyPreviouslyVisible = false;
-            } else if (e.nodeName === "LI") {
+            } else if (["LI", "A", "SPAN"].indexOf(e.nodeName) !== -1) { // Little hacky. :(
                 if (!e.classList.contains(hideRegionClassName)) {
                     anyPreviouslyVisible = true;
                 }
             }
         });
 
-        if (!anyPreviouslyVisible) {
-            if (!lastVisibleHr.classList.contains(hideBreakClassName)) {
-                lastVisibleHr.classList.add(hideBreakClassName)
-            }
-        } else {
-            if (lastVisibleHr.classList.contains(hideBreakClassName)) {
-                lastVisibleHr.classList.remove(hideBreakClassName)
+        if (lastVisibleHr) {
+            if (!anyPreviouslyVisible) {
+                if (!lastVisibleHr.classList.contains(hideBreakClassName)) {
+                    lastVisibleHr.classList.add(hideBreakClassName)
+                }
+            } else {
+                if (lastVisibleHr.classList.contains(hideBreakClassName)) {
+                    lastVisibleHr.classList.remove(hideBreakClassName)
+                }
             }
         }
 
@@ -215,12 +224,9 @@ function unbindRegionQuickSearch() {
  * Binds the events to handle quick searching in the region box.
  * This function expects the region box to be visible to the user.
  */
-function bindRegionQuickSearch() {
-    let menuRegions = document.querySelector('#menu--regions');
-    if (!menuRegions) {
-        return;
-    }
-    let parent = menuRegions.parentElement;
+function bindRegionQuickSearch(menuContainer, menuRegionsContainer, regionItemSelector) {
+
+    let parent = menuContainer;
     let searchPane = document.createElement('div');
     let searchInput = document.createElement('input');
 
@@ -230,7 +236,7 @@ function bindRegionQuickSearch() {
     searchInput.placeholder = "Type to filter...";
 
     let regionElementsByString = {};
-    document.querySelectorAll('#menu--regions > li').forEach(e => {
+    menuRegionsContainer.querySelectorAll(regionItemSelector).forEach(e => {
         regionElementsByString[e.innerText.toLowerCase()] = e
     });
 
@@ -241,8 +247,8 @@ function bindRegionQuickSearch() {
         searchInput.focus();
     }, 10);
 
-    regionQuickSearchHandler = createRegionQuickSearchHandler(regionElementsByString, searchInput, menuRegions);
-    regionQuickSelectHandler = createRegionQuickSelectHandler(searchInput, menuRegions);
+    regionQuickSearchHandler = createRegionQuickSearchHandler(regionElementsByString, searchInput, menuRegionsContainer);
+    regionQuickSelectHandler = createRegionQuickSelectHandler(searchInput, menuRegionsContainer);
 
     window.addEventListener('input', regionQuickSearchHandler);
     window.addEventListener('keydown', regionQuickSelectHandler);
@@ -301,7 +307,38 @@ function toggleRegionBox() {
  * Currently only supported with the "new" bar.
  */
 function setupObserverForRegionQuickSearch() {
-    if (!document.querySelector('[aria-controls="menu--regions"]')) {
+    console.log('Observer setup');
+    let mutationCheck;
+    let mutationToggleElement;
+    let regionListContainer;
+    let regionMenuContainer;
+    let regionItemSelector;
+    if (document.querySelector('[aria-controls="menu--regions"]')) {
+        // Newer version?
+        regionListContainer = document.querySelector('#menu--regions');
+        regionMenuContainer = regionListContainer.parentElement;
+        regionItemSelector = 'li';
+        mutationToggleElement = document.querySelector('[aria-controls="menu--regions"]');
+        mutationCheck = function(mutation) {
+            if (mutation.attributeName !== 'aria-expanded') {
+                return null;
+            }
+            let attribute = mutation.target.attributes.getNamedItem('aria-expanded');
+            return attribute && attribute.value === "true";
+        }
+    } else if (document.querySelector('#nav-regionMenu')) {
+        // Older version?
+        regionMenuContainer = document.querySelector('#regionMenuContent');
+        regionListContainer = regionMenuContainer;
+        regionItemSelector = 'a, span'
+        mutationToggleElement = document.querySelector('#nav-regionMenu');
+        mutationCheck = function(mutation) {
+            if (mutation.attributeName !== 'class') {
+                return null;
+            }
+            return mutation.target.classList.contains('active');
+        }
+    } else {
         return;
     }
 
@@ -310,11 +347,12 @@ function setupObserverForRegionQuickSearch() {
         let isOpen = false;
 
         mutationsList.forEach(mutation => {
-            if (mutation.attributeName === 'aria-expanded') {
-                change = true;
-                let attribute = mutation.target.attributes.getNamedItem('aria-expanded');
-                isOpen = attribute && attribute.value === "true"
+            let result = mutationCheck(mutation);
+            if (result === null) {
+                return;
             }
+            change = true;
+            isOpen = result;
         });
 
         if (!change) {
@@ -322,13 +360,13 @@ function setupObserverForRegionQuickSearch() {
         }
 
         if (isOpen) {
-            bindRegionQuickSearch();
+            bindRegionQuickSearch(regionMenuContainer, regionListContainer, regionItemSelector);
         } else {
-            unbindRegionQuickSearch();
+            unbindRegionQuickSearch(regionMenuContainer, regionListContainer, regionItemSelector);
         }
     })
 
-    observer.observe(document.querySelector('[aria-controls="menu--regions"]'), {
+    observer.observe(mutationToggleElement, {
         attributes: true,
     })
 }
@@ -339,15 +377,24 @@ function setupObserverForRegionQuickSearch() {
  * Shift + R = toggle region window
  */
 window.addEventListener('keydown', event => {
-    if (event.key === "Shift") {
+    if (event.key === 'Shift') {
         toggleServiceBox();
         return true;
     }
 
-    if (event.key === "R" && event.shiftKey === true) {
+    if (event.key === 'R' && event.shiftKey === true) {
         toggleRegionBox();
         return true;
     }
 });
 
-setupObserverForRegionQuickSearch();
+if (document.readyState !== 'complete') {
+    document.addEventListener('readystatechange', event => {
+        if (event.target.readyState !== 'complete') {
+            return;
+        }
+        setTimeout(setupObserverForRegionQuickSearch, 100)
+    })
+} else {
+    setTimeout(setupObserverForRegionQuickSearch, 100)
+}
