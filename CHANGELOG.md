@@ -1,5 +1,11 @@
 # Changelog
 
+## Next Release
+
+### Changes
+
+* Update feature support section in readme file.
+
 ## 1.1.0
 
 Looking at region filter support for the old UI.
