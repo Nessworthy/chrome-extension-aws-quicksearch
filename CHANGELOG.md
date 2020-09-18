@@ -5,6 +5,7 @@
 ### Additions
 
 * Add Chrome store screenshots to the repo (but not the package).
+* Ignore npm modules in the repo (doesn't affect the package).
 
 ### Changes
 
