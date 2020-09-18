@@ -2,6 +2,10 @@
 
 ## Next Release
 
+### Additions
+
+* Add Chrome store screenshots to the repo (but not the package).
+
 ### Changes
 
 * Update feature support section in readme file.
