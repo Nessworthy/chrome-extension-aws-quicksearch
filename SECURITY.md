@@ -7,6 +7,7 @@
 * This extension does not make any external requests, or fetch any external resources.
 * This extension does not rely on any non-native, external, third party libraries (e.g. jQuery).
 * This extension doesn't do anything dumb like mine bitcoin, nor does it contain any ads.
+* This extension is stateless outside of a page load - it does not store data across pages, sessions, etc.
 * The version of the extension in the help popup **should** be a reference to the tagged version/release in the source repository.
 
 ### Permissions
