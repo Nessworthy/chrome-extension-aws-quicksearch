@@ -20,6 +20,7 @@
 
 * Correctly tear down region filter on menu closure in the new UI.
 * Fix shortcuts not working on specific pages (e.g. EC2 home page).
+* Use correct directory for ignoring node modules (doesn't affect the package).
 
 ## 1.1.0
 
