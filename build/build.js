@@ -39,6 +39,7 @@ async function build() {
     /**
      * Step 3: Generate a hash of the source (sans the manifest).
      */
+    console.log('Generating signature...');
     let hashResult = await hashElement('dist', {encoding: "hex"})
     manifest.signature = hashResult.hash
 

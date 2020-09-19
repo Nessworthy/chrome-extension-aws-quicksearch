@@ -1,5 +1,5 @@
 /**
- * States for the double shift shortcut to trigger the service box.
+ * States for the double shortcut to trigger the service box.
  * A bit messy. Should be scoped a bit more locally.
  */
 let inTime = false;
@@ -405,26 +405,24 @@ function setupObserverForRegionQuickSearch() {
 
 /**
  * Bind the shortcode triggers to the window.
- * Shift + Shift = toggle service menu
- * Shift + R = toggle region window
  */
 document.addEventListener('keydown', event => {
-    if (event.key === 'Shift') {
+    if (event.key === 'Alt') {
         toggleServiceMenu();
         return true;
     }
 
-    if (event.key === 'R' && event.shiftKey === true) {
+    if (event.key === 'R' && event.altKey) {
         toggleRegionMenu();
         return true;
     }
 
-    if (event.key === 'S' && event.shiftKey === true) {
+    if (event.key === 'S' && event.altKey) {
         toggleSupportMenu();
         return true;
     }
 
-    if (event.key === 'A' && event.shiftKey === true) {
+    if (event.key === 'A' && event.altKey) {
         toggleAccountMenu();
         return true;
     }

@@ -4,14 +4,15 @@
 
 ### Additions
 
-* Add shortcut to trigger support menu (<kbd>shift</kbd> + <kbd>S</kbd>)
-* Add shortcut to trigger account menu (<kbd>shift</kbd> + <kbd>A</kbd>)
+* Add shortcut to trigger support menu (<kbd>Alt</kbd> + <kbd>S</kbd>)
+* Add shortcut to trigger account menu (<kbd>Alt</kbd> + <kbd>A</kbd>)
 * Add Chrome store screenshots to the repo (but not the package).
 * Ignore npm modules in the repo (doesn't affect the package).
 * Include a signature in the manifest file on build (does not affect package functionality).
 
 ### Changes
 
+* Shortcuts no longer rely on <kbd>Shift</kbd>, because I now realise how dumb that is. <kbd>Alt</kbd> is used instead.
 * Update feature support section in readme file.
 * Shortcuts removed from plugin description (will find another place for these shortly).
 
