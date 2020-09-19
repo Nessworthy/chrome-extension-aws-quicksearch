@@ -6,13 +6,15 @@ Quickly switch services & regions in AWS.
 
 ### Keyboard Shortcuts
 
-<kbd>Alt</kbd>, <kbd>shift</kbd> (in quick succession): Toggles service selector.
+<kbd>Alt</kbd> + <kbd>S</kbd>: Toggles service menu.
 
 <kbd>Alt</kbd> + <kbd>A</kbd>: Toggles account menu.
 
-<kbd>Alt</kbd> + <kbd>R</kbd>: Toggles region selector.
+<kbd>Alt</kbd> + <kbd>R</kbd>: Toggles region menu.
 
-<kbd>Alt</kbd> + <kbd>S</kbd>: Toggles support menu.
+<kbd>Alt</kbd> + <kbd>P</kbd>: Toggles support menu.
+
+You can see these shortcuts at any time by clicking the extension icon in Chrome.
 
 ### Region Searching
 
