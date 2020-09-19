@@ -1,6 +1,8 @@
 # Changelog
 
-## Next Release
+## 1.2.0
+
+Breaking changes in this one - now using <kbd>Alt</kbd>, from <kbd>Shift</kbd>, and added support for a help popup.
 
 ### Additions
 
