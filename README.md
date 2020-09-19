@@ -27,6 +27,12 @@ You can see these shortcuts at any time by clicking the extension icon in Chrome
 
 * All features supported in old and new UI console versions.
 
+## Usage / Security
+
+Concerned about security? Please see the [security policy](SECURITY.md) for more information.
+
+Feel free to get in touch about any concerns you may have.
+
 ## Bugs / Issues / Feature Requests
 
 Please use the GitHub issue tracker to report any feedback. 
