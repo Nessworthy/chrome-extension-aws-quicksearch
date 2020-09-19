@@ -399,7 +399,7 @@ function setupObserverForRegionQuickSearch() {
  */
 document.addEventListener('keydown', event => {
 
-    if (!event.altKey === false) {
+    if (!event.altKey) {
         return true;
     }
 
