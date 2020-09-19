@@ -4,6 +4,7 @@ const manifest = require('../manifest.json');
 const package_base = require('../package.json');
 const ncp = require('ncp').ncp;
 const fs = require('fs');
+const hashElement = require('folder-hash').hashElement;
 
 async function build() {
 
@@ -36,7 +37,13 @@ async function build() {
     await copyFiles();
 
     /**
-     * Step 3: Create the distributable manifest file.
+     * Step 3: Generate a hash of the source (sans the manifest).
+     */
+    let hashResult = await hashElement('dist', {encoding: "hex"})
+    manifest.signature = hashResult.hash
+
+    /**
+     * Step 4: Create the distributable manifest file.
      */
 
     console.log('Creating manifest file...');

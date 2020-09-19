@@ -7,6 +7,7 @@
 * Add shortcut to trigger support panel (<kbd>shift</kbd> + <kbd>S</kbd>)
 * Add Chrome store screenshots to the repo (but not the package).
 * Ignore npm modules in the repo (doesn't affect the package).
+* Include a signature in the manifest file on build (does not affect package functionality).
 
 ### Changes
 
