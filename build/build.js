@@ -37,11 +37,21 @@ async function build() {
     await copyFiles();
 
     /**
-     * Step 3: Generate a hash of the source (sans the manifest).
+     * Step 3: Inject values as desired.
      */
-    console.log('Generating signature...');
-    let hashResult = await hashElement('dist', {encoding: "hex"})
-    manifest.signature = hashResult.hash
+    console.log('Injecting dynamic data...');
+
+    fs.readFile('dist/actions/help/index.html', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        data = data.toString().replace(/{{VERSION}}/g, package_base.version)
+
+        fs.writeFile('dist/actions/help/index.html', data, 'utf8', (err) => {
+            if (err) console.error(err);
+        })
+    })
 
     /**
      * Step 4: Create the distributable manifest file.
