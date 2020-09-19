@@ -1,4 +1,14 @@
 /**
+ * Define available shortcuts, and what keys they are bound to
+ */
+const keyTriggers = {
+    A: toggleAccountMenu,
+    R: toggleRegionMenu,
+    S: toggleServiceMenu,
+    P: toggleSupportMenu
+}
+
+/**
  * States for the double shortcut to trigger the service box.
  * A bit messy. Should be scoped a bit more locally.
  */
@@ -252,28 +262,9 @@ function bindRegionQuickSearch(menuContainer, menuRegionsContainer, regionItemSe
 /**
  * Toggles the AWS service box after being triggered twice in quick succession (500ms).
  * Supports the old and new layout.
- * TODO: Move second trigger logic to outside of this function.
  */
 function toggleServiceMenu() {
-
-    if (inTime) {
-        clearTimeout(inTimeTimer);
-        inTime = false;
-
-        // Trigger search window.
-        let element = document.querySelector('#nav-servicesMenu') || document.querySelector('[data-testid="aws-services-list-button"]');
-
-        if (!element) {
-            return true;
-        }
-
-        element.click();
-    }
-
-    inTime = true;
-    inTimeTimer = setTimeout(() => {
-        inTime = false
-    }, 500)
+    toggleNavigationMenu('services', 'services');
 }
 
 /**
@@ -407,26 +398,18 @@ function setupObserverForRegionQuickSearch() {
  * Bind the shortcode triggers to the window.
  */
 document.addEventListener('keydown', event => {
-    if (event.key === 'Alt') {
-        toggleServiceMenu();
+
+    if (!event.altKey === false) {
         return true;
     }
 
-    if (event.key === 'R' && event.altKey) {
-        toggleRegionMenu();
+    let key = event.key.toUpperCase();
+
+    if (!(key in keyTriggers)) {
         return true;
     }
 
-    if (event.key === 'S' && event.altKey) {
-        toggleSupportMenu();
-        return true;
-    }
-
-    if (event.key === 'A' && event.altKey) {
-        toggleAccountMenu();
-        return true;
-    }
-
+    keyTriggers[key]();
     return true;
 });
 
