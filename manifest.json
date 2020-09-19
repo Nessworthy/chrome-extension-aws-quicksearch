@@ -3,7 +3,12 @@
 
   "name": "AWS Quick Search",
 
-  "permissions": [],
+  "permissions": ["declarativeContent"],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
 
   "icons": {
     "16": "icons/16.png",
@@ -15,5 +20,15 @@
     "matches": [ "https://*.console.aws.amazon.com/*" ],
     "js": ["script.js"],
     "css": ["style.css"]
-  }]
+  }],
+
+  "page_action": {
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    },
+    "default_title": "AWS Console Quick Search",
+    "default_popup": "actions/help/index.html"
+  }
 }

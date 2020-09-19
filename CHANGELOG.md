@@ -4,6 +4,7 @@
 
 ### Additions
 
+* Add shortcut list and introductory message as a page action.
 * Add shortcut to trigger account menu (<kbd>Alt</kbd> + <kbd>P</kbd>)
 * Add shortcut to trigger support menu (<kbd>Alt</kbd> + <kbd>A</kbd>)
 * Add Chrome store screenshots to the repo (but not the package).
@@ -15,6 +16,7 @@
 * Shortcuts no longer rely on <kbd>Shift</kbd>, because I now realise how dumb that is. <kbd>Alt</kbd> is used instead.
 * Shortcut for services is now <kbd>Alt</kbd> + <kbd>S</kbd>.
 * Update feature support section in readme file.
+* Shortcuts removed from plugin description.
 
 ### Fixes
 

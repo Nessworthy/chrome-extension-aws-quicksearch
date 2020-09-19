@@ -1,0 +1,51 @@
+body {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    display: block;
+    margin-top: 0;
+    background-color: #252f3f;
+    color: #FFF;
+    font-weight: normal;
+    font-size: 1.25rem;
+    padding: 5px 0;
+}
+
+p {
+    text-align: center;
+}
+
+.shortcuts {
+    list-style-type: none;
+    margin: 10px;
+    padding: 0;
+}
+
+.shortcuts > li {
+    text-align: center;
+    padding: 2px 0;
+}
+
+.definition {
+    display: inline-block;
+    width: 100px;
+}
+
+.key {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.1em 0.5em;
+    margin: 0 0.2em;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+    background-color: #f7f7f7;
+}
+
+.by-the-way {
+    font-size: 0.7rem;
+    padding: 0 10px;
+}
