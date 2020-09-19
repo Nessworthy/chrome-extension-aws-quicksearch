@@ -8,6 +8,8 @@ Quickly switch services & regions in AWS.
 
 <kbd>shift</kbd>, <kbd>shift</kbd> (in quick succession): Toggles service selector.
 
+<kbd>shift</kbd> + <kbd>A</kbd>: Toggles account menu.
+
 <kbd>shift</kbd> + <kbd>R</kbd>: Toggles region selector.
 
 <kbd>shift</kbd> + <kbd>S</kbd>: Toggles support menu.

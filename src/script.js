@@ -30,23 +30,20 @@ function createRegionQuickSelectHandler(searchElement, menuElement) {
     // This was added last minute, so the function below is messy as hell.
     let currentActiveElement = null;
 
-    function focusOnFirstItem(visibleRegions)
-    {
+    function focusOnFirstItem(visibleRegions) {
         let target = ['A', 'SPAN'].indexOf(visibleRegions[0].nodeName) !== -1 ? visibleRegions[0] : visibleRegions[0].firstChild;
         target.focus();
         currentActiveElement = target;
     }
 
-    function focusOnLastItem(visibleRegions)
-    {
+    function focusOnLastItem(visibleRegions) {
         let lastElement = visibleRegions[visibleRegions.length - 1];
         let target = ['A', 'SPAN'].indexOf(lastElement.nodeName) !== -1 ? lastElement : lastElement.firstChild;
         target.focus();
         currentActiveElement = target;
     }
 
-    function focusOnNextItem(current)
-    {
+    function focusOnNextItem(current) {
         while (current = current.nextSibling) {
             if (['LI', 'A', 'SPAN'].indexOf(current.nodeName) === -1 || current.classList.contains(hideRegionClassName)) {
                 continue;
@@ -60,8 +57,7 @@ function createRegionQuickSelectHandler(searchElement, menuElement) {
         focusOnSearchBar()
     }
 
-    function focusOnPreviousItem(current)
-    {
+    function focusOnPreviousItem(current) {
         while (current = current.previousSibling) {
             if (['LI', 'A', 'SPAN'].indexOf(current.nodeName) === -1 || current.classList.contains(hideRegionClassName)) {
                 continue;
@@ -75,8 +71,7 @@ function createRegionQuickSelectHandler(searchElement, menuElement) {
         focusOnSearchBar()
     }
 
-    function focusOnSearchBar()
-    {
+    function focusOnSearchBar() {
         searchElement.focus()
         currentActiveElement = searchElement;
     }
@@ -202,7 +197,7 @@ function createRegionQuickSearchHandler(regions, searchElement, menuElement) {
  * Silly function to escape a string for regex.
  * All credit to user bobince of StackOverflow
  * @link https://stackoverflow.com/a/3561711/2274710
- * @param string
+ * @param {string} string
  * @returns {*}
  */
 function escapeRegex(string) {
@@ -282,11 +277,13 @@ function toggleServiceBox() {
 }
 
 /**
- * Toggle the AWS region box.
- * Supports the old and new layout.
+ * Generic function to toggle a top level menu.
+ * @param {string} ariaControlMenuName The name of the aria control vlaue of the button - e.g. for menu--foo you would pass "foo". New UI
+ * @param {string} navMenuName The name included in the ID of the button - e.g. for "nav-fooMenu" you would pass "foo". Old UI.
  */
-function toggleRegionBox() {
-    let element = document.querySelector('[aria-controls="menu--regions"]') || document.querySelector('#nav-regionMenu');
+function toggleBox(ariaControlMenuName, navMenuName) {
+    let element = document.querySelector(`[aria-controls="menu--${ariaControlMenuName}"]`)
+        || document.querySelector(`#nav-${navMenuName}Menu`);
 
     if (!element) {
         return;
@@ -296,15 +293,28 @@ function toggleRegionBox() {
     element.click();
 }
 
+/**
+ * Toggle the AWS region box.
+ * Supports the old and new layout.
+ */
+function toggleRegionBox() {
+    toggleBox('regions', 'region')
+}
+
+/**
+ * Toggle the AWS support box.
+ * Supports the old and new layout.
+ */
 function toggleSupportBox() {
-    let element = document.querySelector('[aria-controls="menu--support"]') || document.querySelector('#nav-supportMenu');
+    toggleBox('support', 'support')
+}
 
-    if (!element) {
-        return;
-    }
-
-    element.focus();
-    element.click();
+/**
+ * Toggle the AWS account box.
+ * Supports the old and new layout.
+ */
+function toggleAccountBox() {
+    toggleBox('account', 'account')
 }
 
 /**
@@ -411,6 +421,11 @@ document.addEventListener('keydown', event => {
 
     if (event.key === 'S' && event.shiftKey === true) {
         toggleSupportBox();
+        return true;
+    }
+
+    if (event.key === 'A' && event.shiftKey === true) {
+        toggleAccountBox();
         return true;
     }
 
