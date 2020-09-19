@@ -254,7 +254,7 @@ function bindRegionQuickSearch(menuContainer, menuRegionsContainer, regionItemSe
  * Supports the old and new layout.
  * TODO: Move second trigger logic to outside of this function.
  */
-function toggleServiceBox() {
+function toggleServiceMenu() {
 
     if (inTime) {
         clearTimeout(inTimeTimer);
@@ -281,7 +281,7 @@ function toggleServiceBox() {
  * @param {string} ariaControlMenuName The name of the aria control vlaue of the button - e.g. for menu--foo you would pass "foo". New UI
  * @param {string} navMenuName The name included in the ID of the button - e.g. for "nav-fooMenu" you would pass "foo". Old UI.
  */
-function toggleBox(ariaControlMenuName, navMenuName) {
+function toggleNavigationMenu(ariaControlMenuName, navMenuName) {
     let element = document.querySelector(`[aria-controls="menu--${ariaControlMenuName}"]`)
         || document.querySelector(`#nav-${navMenuName}Menu`);
 
@@ -294,27 +294,27 @@ function toggleBox(ariaControlMenuName, navMenuName) {
 }
 
 /**
- * Toggle the AWS region box.
+ * Toggle the AWS region menu.
  * Supports the old and new layout.
  */
-function toggleRegionBox() {
-    toggleBox('regions', 'region')
+function toggleRegionMenu() {
+    toggleNavigationMenu('regions', 'region')
 }
 
 /**
- * Toggle the AWS support box.
+ * Toggle the AWS support menu.
  * Supports the old and new layout.
  */
-function toggleSupportBox() {
-    toggleBox('support', 'support')
+function toggleSupportMenu() {
+    toggleNavigationMenu('support', 'support')
 }
 
 /**
- * Toggle the AWS account box.
+ * Toggle the AWS account menu.
  * Supports the old and new layout.
  */
-function toggleAccountBox() {
-    toggleBox('account', 'account')
+function toggleAccountMenu() {
+    toggleNavigationMenu('account', 'account')
 }
 
 /**
@@ -410,22 +410,22 @@ function setupObserverForRegionQuickSearch() {
  */
 document.addEventListener('keydown', event => {
     if (event.key === 'Shift') {
-        toggleServiceBox();
+        toggleServiceMenu();
         return true;
     }
 
     if (event.key === 'R' && event.shiftKey === true) {
-        toggleRegionBox();
+        toggleRegionMenu();
         return true;
     }
 
     if (event.key === 'S' && event.shiftKey === true) {
-        toggleSupportBox();
+        toggleSupportMenu();
         return true;
     }
 
     if (event.key === 'A' && event.shiftKey === true) {
-        toggleAccountBox();
+        toggleAccountMenu();
         return true;
     }
 
