@@ -314,9 +314,9 @@ function setupObserverForRegionQuickSearch() {
     let regionMenuContainer;
     let regionItemSelector;
     let firstObserverCall = true;
-    let ui_version = 0;
+    let uiVersion = 0;
     if (document.querySelector('[aria-controls="menu--regions"]')) {
-        ui_version = 2;
+        uiVersion = 2;
         regionItemSelector = 'li';
         mutationToggleElement = document.querySelector('[aria-controls="menu--regions"]');
         mutationCheck = function(mutation) {
@@ -324,10 +324,10 @@ function setupObserverForRegionQuickSearch() {
                 return null;
             }
             let attribute = mutation.target.attributes.getNamedItem('aria-expanded');
-            return attribute && attribute.value === "true";
+            return !!(attribute && attribute.value === "true");
         }
     } else if (document.querySelector('#nav-regionMenu')) {
-        ui_version = 1;
+        uiVersion = 1;
         regionItemSelector = 'a, span'
         mutationToggleElement = document.querySelector('#nav-regionMenu');
         mutationCheck = function(mutation) {
@@ -344,11 +344,11 @@ function setupObserverForRegionQuickSearch() {
 
         if (firstObserverCall) {
             firstObserverCall = false;
-            if (ui_version === 2) {
+            if (uiVersion === 2) {
                 // Newer version?
                 regionListContainer = document.querySelector('#menu--regions');
                 regionMenuContainer = regionListContainer.parentElement;
-            } else if (ui_version === 1) {
+            } else if (uiVersion === 1) {
                 // Older version?
                 regionMenuContainer = document.querySelector('#regionMenuContent');
                 regionListContainer = regionMenuContainer;

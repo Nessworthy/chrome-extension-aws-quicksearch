@@ -11,6 +11,10 @@
 
 * Update feature support section in readme file.
 
+### Fixes
+
+* Correctly tear down region filter on menu closure in the new UI. 
+
 ## 1.1.0
 
 Looking at region filter support for the old UI.
