@@ -4,16 +4,19 @@
 
 ### Additions
 
+* Add shortcut to trigger support panel (<kbd>shift</kbd> + <kbd>S</kbd>)
 * Add Chrome store screenshots to the repo (but not the package).
 * Ignore npm modules in the repo (doesn't affect the package).
 
 ### Changes
 
 * Update feature support section in readme file.
+* Shortcuts removed from plugin description (will find another place for these shortly).
 
 ### Fixes
 
-* Correctly tear down region filter on menu closure in the new UI. 
+* Correctly tear down region filter on menu closure in the new UI.
+* Fix shortcuts not working on specific pages (e.g. EC2 home page).
 
 ## 1.1.0
 

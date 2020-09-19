@@ -10,6 +10,8 @@ Quickly switch services & regions in AWS.
 
 <kbd>shift</kbd> + <kbd>R</kbd>: Toggles region selector.
 
+<kbd>shift</kbd> + <kbd>S</kbd>: Toggles support menu.
+
 ### Region Searching
 
 ![Region Quick Searching](features/region-quick-search.gif)

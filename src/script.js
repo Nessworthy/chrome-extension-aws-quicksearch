@@ -286,8 +286,18 @@ function toggleServiceBox() {
  * Supports the old and new layout.
  */
 function toggleRegionBox() {
-
     let element = document.querySelector('[aria-controls="menu--regions"]') || document.querySelector('#nav-regionMenu');
+
+    if (!element) {
+        return;
+    }
+
+    element.focus();
+    element.click();
+}
+
+function toggleSupportBox() {
+    let element = document.querySelector('[aria-controls="menu--support"]') || document.querySelector('#nav-supportMenu');
 
     if (!element) {
         return;
@@ -388,7 +398,7 @@ function setupObserverForRegionQuickSearch() {
  * Shift + Shift = toggle service menu
  * Shift + R = toggle region window
  */
-window.addEventListener('keydown', event => {
+document.addEventListener('keydown', event => {
     if (event.key === 'Shift') {
         toggleServiceBox();
         return true;
@@ -398,6 +408,13 @@ window.addEventListener('keydown', event => {
         toggleRegionBox();
         return true;
     }
+
+    if (event.key === 'S' && event.shiftKey === true) {
+        toggleSupportBox();
+        return true;
+    }
+
+    return true;
 });
 
 setupObserverForRegionQuickSearch()
