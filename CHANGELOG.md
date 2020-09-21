@@ -6,6 +6,10 @@
 
 * Add a security policy to the repo (doesn't affect the package).
 
+### Fixes
+
+* Allow shortcuts to trigger in child frames (some service pages use these).
+
 ## 1.2.0
 
 Breaking changes in this one - now using <kbd>Alt</kbd>, from <kbd>Shift</kbd>, and added support for a help popup.

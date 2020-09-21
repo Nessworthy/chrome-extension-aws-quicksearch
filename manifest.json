@@ -19,7 +19,8 @@
   "content_scripts": [{
     "matches": [ "https://*.console.aws.amazon.com/*" ],
     "js": ["script.js"],
-    "css": ["style.css"]
+    "css": ["style.css"],
+    "all_frames": true
   }],
 
   "page_action": {
