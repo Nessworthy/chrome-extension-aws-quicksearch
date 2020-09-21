@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased]
+## [1.2.3] - 2020-09-20
+
+No package changes - purely for build process fixes.
 
 ### Fixed
 - Correctly add manifest file contents to the packaged ZIP file on build (doesn't affect the package).  
