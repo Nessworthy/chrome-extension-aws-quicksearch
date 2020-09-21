@@ -1,6 +1,8 @@
 # Changelog
 
-## Next Release
+## 1.2.1
+
+Looking at bug fixes and cleanup, finally found out why the shortcuts weren't working in EC2 🙌. 
 
 ### Additions
 
