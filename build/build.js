@@ -4,7 +4,6 @@ const manifest = require('../manifest.json');
 const package_base = require('../package.json');
 const ncp = require('ncp').ncp;
 const fs = require('fs');
-const hashElement = require('folder-hash').hashElement;
 
 async function build() {
 

@@ -22,7 +22,6 @@
   "homepage": "https://github.com/Nessworthy/chrome-extension-aws-quicksearch",
   "browser": true,
   "devDependencies": {
-    "folder-hash": "^3.3.3",
     "ncp": "^2.0.0"
   }
 }

@@ -9,6 +9,7 @@
 ### Changes
 
 * Stop fiddling with event cancelling during region navigation.
+* Remove unused `folder-hash` npm package in the build process (doesn't affect the package).
 
 ### Fixes
 
