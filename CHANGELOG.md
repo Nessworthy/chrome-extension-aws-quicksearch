@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.2.2] - 2020-09-20
 
 ### Added
 - Create both unpacked and packed files during build process (doesn't affect the package).
