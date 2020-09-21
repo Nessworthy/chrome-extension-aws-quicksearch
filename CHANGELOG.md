@@ -4,6 +4,7 @@
 
 ### Added
 - Create both unpacked and packed files during build process (doesn't affect the package).
+- Leverage github actions for releases
 
 ### Changed
 - Changelog format changed to keepachangelog's standard.
