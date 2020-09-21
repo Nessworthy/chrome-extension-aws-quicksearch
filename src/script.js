@@ -55,9 +55,11 @@
             currentActiveElement = target;
         }
 
-        function focusOnNextItem(current) {
-            while (current = current.nextSibling) {
+        function focusOnNextSibling(current, whichSibling) {
+            current = current[whichSibling];
+            while (current) {
                 if (['LI', 'A', 'SPAN'].indexOf(current.nodeName) === -1 || current.classList.contains(hideRegionClassName)) {
+                    current = current[whichSibling];
                     continue;
                 }
                 let target = ['A', 'SPAN'].indexOf(current.nodeName) !== -1 ? current : current.firstChild;
@@ -65,22 +67,16 @@
                 currentActiveElement = target;
                 return false;
             }
-            // Reached the end?
+            // Reached the start/end?
             focusOnSearchBar()
         }
 
+        function focusOnNextItem(current) {
+            focusOnNextSibling(current, 'nextSibling')
+        }
+
         function focusOnPreviousItem(current) {
-            while (current = current.previousSibling) {
-                if (['LI', 'A', 'SPAN'].indexOf(current.nodeName) === -1 || current.classList.contains(hideRegionClassName)) {
-                    continue;
-                }
-                let target = ['A', 'SPAN'].indexOf(current.nodeName) !== -1 ? current : current.firstChild;
-                target.focus();
-                currentActiveElement = target;
-                return false;
-            }
-            // Reached the start?
-            focusOnSearchBar()
+            focusOnNextSibling(current, 'previousSibling')
         }
 
         function focusOnSearchBar() {
@@ -137,7 +133,7 @@
     /**
      * Creates an event handler for the region filter box to update the visible regions.
      * @param {object} regions
-     * @param {HTMLElement} searchElement
+     * @param {HTMLInputElement} searchElement
      * @param {HTMLElement} menuElement
      * @returns {function(*): boolean}
      */
