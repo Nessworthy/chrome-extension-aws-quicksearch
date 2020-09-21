@@ -32,7 +32,8 @@
 
     /**
      * Creates an event handler to allow arrow keys to navigate through visible regions in the regions box.
-     * WARNING: This forcibly nullifies the down/up arrow events because AWS' own arrow code screws with this one.
+     * This extension overrides the focus using internal tracking. I imagine this may break other things.
+     * Let me know if it does.
      * @param {HTMLElement} searchElement
      * @param {HTMLElement} menuElement
      * @returns {function(...[*]=)}
@@ -89,10 +90,6 @@
                 return true;
             }
 
-            // Suppress further key event handlers, because they screw with this. >:O
-            // TODO: Let's not do this?
-            event.preventDefault();
-
             // New, old
             let visibleRegions = menuElement.querySelectorAll('li:not(.' + hideRegionClassName + '), .region:not(.' + hideRegionClassName + ')');
 
@@ -126,7 +123,7 @@
                 focusOnPreviousItem(current);
             }
 
-            return false;
+            return true;
         }
     }
 

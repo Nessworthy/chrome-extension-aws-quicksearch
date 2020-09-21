@@ -6,6 +6,10 @@
 
 * Add a security policy to the repo (doesn't affect the package).
 
+### Changes
+
+* Stop fiddling with event cancelling during region navigation.
+
 ### Fixes
 
 * Allow shortcuts to trigger in child frames (some service pages use these).
