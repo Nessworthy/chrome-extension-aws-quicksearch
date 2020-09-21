@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Correctly add manifest file contents to the packaged ZIP file on build.  
+
 ### Changed
 - Rename release name and build package name (doesn't affect the package).
 

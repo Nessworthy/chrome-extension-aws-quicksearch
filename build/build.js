@@ -74,8 +74,16 @@ async function build() {
     console.log('Creating manifest file...');
     let manifestWriteStream = fs.createWriteStream('dist/unpacked/manifest.json');
 
-    manifestWriteStream.write(JSON.stringify(manifest));
-    manifestWriteStream.close();
+    await new Promise((res, rej) => {
+        manifestWriteStream.write(JSON.stringify(manifest), err => {
+            manifestWriteStream.close();
+            if (err) {
+                rej(err);
+            }
+            res();
+        });
+    })
+
 
     /**
      * Step 5: Zip archive
