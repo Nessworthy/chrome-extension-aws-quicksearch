@@ -15,6 +15,9 @@
 * `declarativeContent` - The extension needs to state when the help popup is clickable (i.e. only when visiting the AWS console).
     The only way to do this is by using Chrome's declarative API.
 
+* `host` - This extension is only useful on specific domains (`*.console.amazonaws.com`) - the host
+    permission and use ensures that the extension runs only on those domains. 
+
 If you notice this app differing or extending beyond the usage declared above, please see below on reporting vulnerabilities.
 
 ## Supported Versions
