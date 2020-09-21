@@ -4,6 +4,7 @@ const manifest = require('../manifest.json');
 const package_base = require('../package.json');
 const ncp = require('ncp').ncp;
 const fs = require('fs');
+const admZip = require('adm-zip')
 
 async function build() {
 
@@ -22,9 +23,18 @@ async function build() {
      */
 
     console.log('Copying source code...');
+
+    if (!fs.existsSync('dist')) {
+        fs.mkdirSync('dist');
+    }
+
+    if (!fs.existsSync('dist/unpacked')) {
+        fs.mkdirSync('dist/unpacked');
+    }
+
     async function copyFiles() {
         return new Promise(function (resolve, reject) {
-            ncp('src', 'dist', function (error) {
+            ncp('src', 'dist/unpacked', function (error) {
                 if (error) {
                     reject(error)
                 }
@@ -33,21 +43,26 @@ async function build() {
         });
     }
 
-    await copyFiles();
+    try {
+        await copyFiles();
+    } catch(err) {
+        console.error(err);
+        return false;
+    }
 
     /**
      * Step 3: Inject values as desired.
      */
     console.log('Injecting dynamic data...');
 
-    fs.readFile('dist/actions/help/index.html', (err, data) => {
+    fs.readFile('dist/unpacked/actions/help/index.html', (err, data) => {
         if (err) {
             console.error(err);
             return;
         }
         data = data.toString().replace(/{{VERSION}}/g, package_base.version)
 
-        fs.writeFile('dist/actions/help/index.html', data, 'utf8', (err) => {
+        fs.writeFile('dist/unpacked/actions/help/index.html', data, 'utf8', (err) => {
             if (err) console.error(err);
         })
     })
@@ -57,12 +72,23 @@ async function build() {
      */
 
     console.log('Creating manifest file...');
-    let manifestWriteStream = fs.createWriteStream('dist/manifest.json');
+    let manifestWriteStream = fs.createWriteStream('dist/unpacked/manifest.json');
 
     manifestWriteStream.write(JSON.stringify(manifest));
     manifestWriteStream.close();
 
+    /**
+     * Step 5: Zip archive
+     */
+    console.log('Creating ZIP archive...');
+    let zip = new admZip();
+
+    zip.addLocalFolder('dist/unpacked');
+
+    zip.writeZip(process.cwd() + '/dist/packed.zip')
+
     console.log('Done!');
+
 }
 
 return build();
