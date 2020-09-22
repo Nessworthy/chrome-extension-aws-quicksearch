@@ -4,7 +4,8 @@ const manifest = require('../manifest.json');
 const package_base = require('../package.json');
 const ncp = require('ncp').ncp;
 const fs = require('fs');
-const admZip = require('adm-zip')
+const rimraf = require('rimraf');
+const admZip = require('adm-zip');
 
 async function build() {
 
@@ -19,7 +20,13 @@ async function build() {
     manifest.homepage_url = package_base.homepage;
 
     /**
-     * Step 2: Copy the source code.
+     * Step 2: Clear build directory.
+     */
+    console.log('Clearing build directory...');
+    rimraf.sync(process.cwd() + '/dist')
+
+    /**
+     * Step 3: Copy the source code.
      */
 
     console.log('Copying source code...');
@@ -51,24 +58,30 @@ async function build() {
     }
 
     /**
-     * Step 3: Inject values as desired.
+     * Step 4: Inject values as desired.
      */
     console.log('Injecting dynamic data...');
 
-    fs.readFile('dist/unpacked/actions/help/index.html', (err, data) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        data = data.toString().replace(/{{VERSION}}/g, package_base.version)
+    await new Promise((res, rej) => {
+        fs.readFile('dist/unpacked/actions/help/index.html', (err, data) => {
+            if (err) {
+                rej(err);
+                return;
+            }
+            data = data.toString().replace(/{{VERSION}}/g, package_base.version)
 
-        fs.writeFile('dist/unpacked/actions/help/index.html', data, 'utf8', (err) => {
-            if (err) console.error(err);
+            fs.writeFile('dist/unpacked/actions/help/index.html', data, 'utf8', (err) => {
+                if (err) {
+                    rej(err);
+                    return;
+                }
+                res();
+            })
         })
-    })
+    });
 
     /**
-     * Step 4: Create the distributable manifest file.
+     * Step 5: Create the distributable manifest file.
      */
 
     console.log('Creating manifest file...');
@@ -79,6 +92,7 @@ async function build() {
             manifestWriteStream.close();
             if (err) {
                 rej(err);
+                return;
             }
             res();
         });
@@ -86,7 +100,7 @@ async function build() {
 
 
     /**
-     * Step 5: Zip archive
+     * Step 6: Zip archive
      */
     console.log('Creating ZIP archive...');
     let zip = new admZip();

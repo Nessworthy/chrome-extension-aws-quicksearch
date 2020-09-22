@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- Upload the build package as an action build artifact on release (doesn't affect the package).
+- Clear dist directory before build (doesn't affect the package).
+
+### Fixed
+- Correctly await for dynamic data injection during build (doesn't affect the package).
+
 ## [1.2.3] - 2020-09-20
 
 No package changes - purely for build process fixes.
