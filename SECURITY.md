@@ -22,10 +22,10 @@ If you notice this app differing or extending beyond the usage declared above, p
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.2.0   | :white_check_mark: |
-| < 1.2.0 | :x:                |
+| Version    | Supported          |
+| ---------- | ------------------ |
+| `>= 1.2.0` | :white_check_mark: |
+| `< 1.2.0`  | :x:                |
 
 ## Reporting a Vulnerability
 

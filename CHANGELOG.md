@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.2.4] - 2020-09-25
 
 ### Changed
 - Upload the build package as an action build artifact on release (doesn't affect the package).
