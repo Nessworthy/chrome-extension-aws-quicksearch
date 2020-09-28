@@ -1,6 +1,6 @@
 {
   "name": "chrome-aws-quicksearch",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Quickly switch services & regions in the AWS console using your keyboard.",
   "main": "build/build.js",
   "scripts": {
