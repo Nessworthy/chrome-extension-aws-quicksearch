@@ -20,7 +20,8 @@
     "matches": [ "https://*.console.aws.amazon.com/*" ],
     "js": ["script.js"],
     "css": ["style.css"],
-    "all_frames": true
+    "all_frames": true,
+    "match_about_blank": true
   }],
 
   "page_action": {

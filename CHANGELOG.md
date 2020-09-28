@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased] - 2020-09-28
+
+### Fixed
+- Allow shortcuts to be triggered from inside dynamically created frames.
+
 ## [1.2.4] - 2020-09-25
 
 ### Changed
